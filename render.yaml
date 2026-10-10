@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: captains-call
+    runtime: node
+    plan: free
+    region: singapore
+    repo: https://github.com/Vaibhavv2704/captains-call
+    branch: main
+    buildCommand: npx --yes pnpm@11.25.0 install --frozen-lockfile --prod=false && npx --yes pnpm@11.25.0 run build
+    startCommand: npm start
+    healthCheckPath: /api/scenarios
+    autoDeployTrigger: commit
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: 24.19.0

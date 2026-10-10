@@ -56,3 +56,13 @@ See [DEMO.md](DEMO.md) for a walkthrough and [DREAM11.md](DREAM11.md) for the su
 Inter font assets are from Google Fonts and licensed under the SIL Open Font License. Field SVG visual assets were extracted from the user-supplied Figma reference for this implementation.
 
 Optional browser journey: install Playwright locally (or supply its module URL as PLAYWRIGHT_MODULE), ensure Microsoft Edge is installed, and run node tests/journey.mjs against the running development server. It checks desktop mouse dragging, mobile touch placement, field controls, locking, analysis, reveal, history, mirroring, theme, and overflow. Screenshots are written to the workspace.
+
+## Deploy on Render
+
+[Deploy Captain's Call on Render](https://render.com/deploy?repo=https://github.com/Vaibhavv2704/captains-call)
+
+The checked-in `render.yaml` creates one free Node web service in Singapore from `main`. It pins Node 24.19.0 and pnpm 11.25.0, installs development tools explicitly for the TypeScript build and current runtime, runs the production build, starts Express with `npm start`, and checks `/api/scenarios` for health. Express binds to Render's `PORT` on all interfaces. No database or API key is required.
+
+Connect your Render account and deploy the Blueprint using the button above. Alternatively, create a Node Web Service from this GitHub repo with the build/start commands in `render.yaml`, choose Free, and set `NODE_VERSION=24.19.0`. Add `OPENAI_API_KEY` in Render's environment settings only if you want real LLM analysis; otherwise Demo analysis works immediately. Never commit keys.
+
+After the service is live, verify `/api/scenarios`, field placement, locking, analysis, and scripted reveal at the assigned URL. Free services can sleep when idle. Locked reveal sessions live in process memory and are lost on restarts or redeploys; browser decision history remains local. See [Render's free-service documentation](https://render.com/docs/free) and [Blueprint reference](https://render.com/docs/blueprint-spec).
